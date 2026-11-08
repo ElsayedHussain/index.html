@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="مدير العملاء الشامل - نظام محاسبي وإداري مجاني لإدارة حسابات العملاء والديون وإصدار الفواتير أونلاين مقدم من Elsayed Hussain.">
+    <title>مدير العملاء الشامل وإصدار الفواتير - Elsayed Hussain</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+        body { font-family: 'Cairo', sans-serif; }
+        html { scroll-behavior: smooth; }
+
+        /* إعدادات خاصة بالطباعة وحفظ الـ PDF لإخفاء الموقع وإظهار الفاتورة فقط */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #invoiceModal, #invoiceModal * {
+                visibility: visible;
+            }
+            #invoiceModal {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            #invoiceBox {
+                box-shadow: none !important;
+                border: 1px solid #e2e8f0 !important;
+                max-width: 100% !important;
+                width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+    <!-- شريط التنقل العلوي -->
+    <header class="bg-indigo-700 text-white shadow-md sticky top-0 z-40 no-print">
+        <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3 space-x-reverse">
+                <span class="text-xl md:text-2xl font-extrabold tracking-wide">مدير العملاء الشامل</span>
+                <span class="bg-indigo-900 text-xs px-2.5 py-1 rounded-full text-indigo-200 font-semibold">Elsayed Hussain</span>
+            </div>
+            <nav class="flex flex-wrap items-center gap-3 md:gap-5 text-sm md:text-base font-medium">
+                <a href="#dashboard" class="hover:text-indigo-200 transition">لوحة التحكم</a>
+                <a href="#smart-apps" class="hover:text-indigo-200 transition font-bold text-amber-300">الأنظمة الذكية</a>
+                <a href="#clients-section" class="hover:text-indigo-200 transition">سجل العملاء</a>
+                <a href="#guide" class="hover:text-indigo-200 transition">دليل الاستخدام</a>
+                <a href="#about" class="hover:text-indigo-200 transition">من نحن</a>
+                <a href="#privacy" class="hover:text-indigo-200 transition">سياسة الخصوصية</a>
+                <a href="#contact" class="hover:text-indigo-200 transition">اتصل بنا</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-8 no-print" id="dashboard">
+
+        <!-- قسم الروابط المباشرة للأنظمة الذكية (المواقع المرتبطة) -->
+        <section id="smart-apps" class="mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <!-- رابط موقع مدير العملاء الشامل الذكي -->
+                <div class="bg-gradient-to-l from-indigo-600 to-indigo-800 text-white p-6 rounded-xl shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border border-indigo-500">
+                    <div>
+                        <span class="bg-amber-400 text-indigo-950 text-xs font-extrabold px-2.5 py-0.5 rounded-full inline-block mb-2">منصة خارجية متكاملة</span>
+                        <h2 class="text-xl font-extrabold mb-1">مدير العملاء الشامل الذكي</h2>
+                        <p class="text-xs text-indigo-100 opacity-90">إدارة ذكية لبيانات العملاء، المتابعة الفورية، وتنظيم المعاملات عبر السحابة.</p>
+                        <p class="text-xs text-amber-300 mt-1 font-mono" dir="ltr">sayedhussain.free.nf</p>
+                    </div>
+                    <a href="http://sayedhussain.free.nf" target="_blank" rel="noopener noreferrer" class="bg-white text-indigo-800 hover:bg-indigo-50 font-extrabold text-sm px-5 py-2.5 rounded-lg shadow transition shrink-0">
+                        دخول للموقع &larr;
+                    </a>
+                </div>
+
+                <!-- رابط موقع مدير الحسابات الشامل الذكي -->
+                <div class="bg-gradient-to-l from-emerald-600 to-teal-800 text-white p-6 rounded-xl shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border border-emerald-500">
+                    <div>
+                        <span class="bg-amber-400 text-emerald-950 text-xs font-extrabold px-2.5 py-0.5 rounded-full inline-block mb-2">نظام محاسبي سحابي</span>
+                        <h2 class="text-xl font-extrabold mb-1">مدير الحسابات الشامل الذكي</h2>
+                        <p class="text-xs text-emerald-100 opacity-90">متابعة الحسابات المالية، المصروفات، الإيرادات، والتقارير المحاسبية التفصيلية.</p>
+                        <p class="text-xs text-amber-300 mt-1 font-mono" dir="ltr">elsayedHussain.free.nf</p>
+                    </div>
+                    <a href="http://elsayedHussain.free.nf" target="_blank" rel="noopener noreferrer" class="bg-white text-emerald-800 hover:bg-emerald-50 font-extrabold text-sm px-5 py-2.5 rounded-lg shadow transition shrink-0">
+                        دخول للموقع &larr;
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- شريط الأدوات العلوي (نسخ احتياطي وتصدير) -->
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 mb-6 flex flex-wrap justify-between items-center gap-4">
+            <div>
+                <h1 class="text-lg font-bold text-slate-800">لوحة الإدارة المالية والفواتير</h1>
+                <p class="text-xs text-slate-500">حفظ تلقائي على المتصفح مع إمكانية طباعة فواتير PDF رسمية لكل عميل.</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <button onclick="exportToCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3.5 py-2 rounded-lg transition shadow-sm">
+                    تصدير Excel (CSV)
+                </button>
+                <button onclick="downloadBackup()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3.5 py-2 rounded-lg transition shadow-sm">
+                    حفظ نسخة احتياطية
+                </button>
+                <label class="bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold px-3.5 py-2 rounded-lg transition shadow-sm cursor-pointer">
+                    استعادة نسخة
+                    <input type="file" id="restoreFile" accept=".json" class="hidden" onchange="restoreBackup(event)">
+                </label>
+                <button onclick="clearAllData()" class="bg-rose-100 hover:bg-rose-200 text-rose-700 text-xs font-bold px-3 py-2 rounded-lg transition">
+                    مسح الكل
+                </button>
+            </div>
+        </div>
+
+        <!-- بطاقات الإحصائيات السريعة -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+            <div class="bg-white p-5 rounded-xl shadow-sm border-r-4 border-indigo-600">
+                <p class="text-xs font-semibold text-slate-500 mb-1">إجمالي عدد العملاء</p>
+                <p class="text-3xl font-extrabold text-slate-800" id="stat-count">0</p>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-sm border-r-4 border-blue-600">
+                <p class="text-xs font-semibold text-slate-500 mb-1">إجمالي التعاملات (ج.م)</p>
+                <p class="text-3xl font-extrabold text-blue-600" id="stat-total">0.00</p>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-sm border-r-4 border-emerald-600">
+                <p class="text-xs font-semibold text-slate-500 mb-1">إجمالي المحصل (ج.م)</p>
+                <p class="text-3xl font-extrabold text-emerald-600" id="stat-paid">0.00</p>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-sm border-r-4 border-rose-600">
+                <p class="text-xs font-semibold text-slate-500 mb-1">إجمالي الديون المتبقية (ج.م)</p>
+                <p class="text-3xl font-extrabold text-rose-600" id="stat-remaining">0.00</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8" id="clients-section">
+            <!-- نموذج إضافة عميل جديد -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 h-fit">
+                <h2 class="text-lg font-bold mb-4 text-indigo-700 border-b pb-2" id="form-title">إضافة عميل / معاملة جديدة</h2>
+                <form id="clientForm" onsubmit="saveClient(event)" class="space-y-4">
+                    <input type="hidden" id="client_id">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">اسم العميل *</label>
+                        <input type="text" id="name" required placeholder="مثال: شركة النور / أ. محمد" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">رقم الهاتف (واتساب) *</label>
+                        <input type="tel" id="phone" required placeholder="01016899467" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm" dir="ltr">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">الخدمة أو المنتج</label>
+                        <input type="text" id="service" placeholder="مثال: تطوير موقع / صيانة أجهزة" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-sm font-semibold mb-1">المبلغ الإجمالي</label>
+                            <input type="number" step="0.01" id="total_amount" value="0" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-1">المبلغ المدفوع</label>
+                            <input type="number" step="0.01" id="paid_amount" value="0" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">ملاحظات إضافية</label>
+                        <textarea id="notes" rows="2" placeholder="موعد السداد أو تفاصيل المعاملة..." class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
+                    </div>
+                    <div class="flex gap-2 pt-1">
+                        <button type="submit" id="submitBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-lg shadow transition text-sm">
+                            حفظ بيانات العميل
+                        </button>
+                        <button type="button" id="cancelEditBtn" onclick="resetForm()" class="hidden bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-2.5 rounded-lg transition text-sm">
+                            إلغاء
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- قائمة العملاء والبحث -->
+            <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div class="flex flex-wrap justify-between items-center gap-4 mb-5 border-b pb-4">
+                    <h2 class="text-lg font-bold text-indigo-700">سجل العملاء والحسابات</h2>
+                    <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+                        <input type="text" id="searchInput" oninput="renderClients()" placeholder="ابحث بالاسم، الهاتف، أو الخدمة..." class="px-3 py-1.5 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 flex-grow sm:w-60">
+                        <select id="filterSelect" onchange="renderClients()" class="px-3 py-1.5 border rounded-lg text-sm bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option value="all">كل العملاء</option>
+                            <option value="debt">عليهم مديونية</option>
+                            <option value="paid">خالص الحساب</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 text-xs font-bold border-b">
+                                <th class="p-3">العميل</th>
+                                <th class="p-3">الخدمة والتاريخ</th>
+                                <th class="p-3">الإجمالي</th>
+                                <th class="p-3">المدفوع</th>
+                                <th class="p-3">المتبقي</th>
+                                <th class="p-3 text-center">إجراءات وفواتير</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clientsTableBody" class="divide-y text-sm">
+                            <!-- يتم ملء الجدول تلقائياً -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- دليل الاستخدام والأقسام القانونية للتوافق مع Google AdSense -->
+        <div class="mt-14 space-y-8">
+            <section id="guide" class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="text-2xl font-bold mb-4 text-indigo-700 border-b pb-2">دليل استخدام نظام مدير العملاء وإصدار الفواتير</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm leading-relaxed text-slate-700 mt-4">
+                    <div class="bg-slate-50 p-4 rounded-lg border">
+                        <h3 class="font-bold text-indigo-600 mb-2 text-base">1. إدارة الحسابات والديون</h3>
+                        <p>سجل بيانات كل عميل وقيمة الخدمة والمبلغ المدفوع، ليقوم النظام تلقائياً بحساب المديونية المتبقية وتحديث الإحصائيات المالية الفورية.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border">
+                        <h3 class="font-bold text-indigo-600 mb-2 text-base">2. إصدار فواتير PDF وإيصالات</h3>
+                        <p>اضغط على زر "فاتورة" بجانب أي عميل لمعاينة إيصال رسمي منسق يحتوي على كافة التفاصيل المالية، مع إمكانية طباعته ورقياً أو حفظه كملف PDF لإرساله للعميل.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border">
+                        <h3 class="font-bold text-indigo-600 mb-2 text-base">3. تنبيهات واتساب والنسخ الاحتياطي</h3>
+                        <p>أرسل كشف حساب فوري عبر واتساب بضغطة زر، واحتفظ بنسخة احتياطية من بياناتك بصيغة JSON أو Excel لضمان عدم فقدان أي سجل.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="text-2xl font-bold mb-4 text-indigo-700 border-b pb-2">من نحن</h2>
+                <p class="leading-relaxed text-slate-700 mb-3">
+                    مرحباً بك في منصة <strong>مدير العملاء الشامل</strong> التابعة لموقع <strong>Elsayed Hussain</strong> (<code>elsayedhussain.shop</code>). نحن منصة تقنية متخصصة في تطوير تطبيقات الويب، الأنظمة المحاسبية المبسطة، وحلول الإدارة الرقمية التي تساعد أصحاب المشروعات الصغيرة، التجار، والمستقلين على تنظيم أعمالهم وإصدار فواتيرهم بدقة واحترافية.
+                </p>
+                <div class="mt-4 pt-4 border-t border-slate-100 flex flex-wrap gap-4 text-sm">
+                    <a href="http://sayedhussain.free.nf" target="_blank" class="text-indigo-600 hover:underline font-bold">🔗 مدير العملاء الشامل الذكي (sayedhussain.free.nf)</a>
+                    <a href="http://elsayedHussain.free.nf" target="_blank" class="text-emerald-600 hover:underline font-bold">🔗 مدير الحسابات الشامل الذكي (elsayedHussain.free.nf)</a>
+                </div>
+            </section>
+
+            <section id="privacy" class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="text-2xl font-bold mb-4 text-indigo-700 border-b pb-2">سياسة الخصوصية</h2>
+                <p class="leading-relaxed text-slate-700 mb-4">
+                    خصوصية زوارنا ومستخدمي أدواتنا على موقع <strong>elsayedhussain.shop</strong> لها أهمية بالغة بالنسبة لنا:
+                </p>
+                <ul class="list-disc list-inside space-y-2 text-slate-700 leading-relaxed text-sm md:text-base">
+                    <li><strong>حماية البيانات المالية:</strong> جميع سجلات العملاء والفواتير التي تدخلها يتم تخزينها حصرياً داخل متصفح جهازك (LocalStorage) ولا يتم إرسالها إلى أي خادم خارجي.</li>
+                    <li><strong>ملفات تعريف الارتباط وإعلانات Google:</strong> نستخدم شركات إعلان كطرف ثالث (مثل Google AdSense) لعرض الإعلانات عند زيارتك لموقعنا، والتي قد تستخدم ملفات تعريف الارتباط (مثل ملف DART) لعرض إعلانات تناسب اهتماماتك.</li>
+                </ul>
+            </section>
+
+            <section id="contact" class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="text-2xl font-bold mb-4 text-indigo-700 border-b pb-2">اتصل بنا</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-indigo-100 text-indigo-700 px-3 py-1.5 rounded-lg font-bold text-sm">البريد الإلكتروني</span>
+                        <a href="mailto:alsayef68@gmail.com" class="text-indigo-600 hover:underline font-semibold" dir="ltr">alsayef68@gmail.com</a>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded-lg font-bold text-sm">الهاتف / واتساب</span>
+                        <a href="https://wa.me/201016899467" target="_blank" class="text-emerald-600 hover:underline font-bold" dir="ltr">+201016899467</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- نافذة معاينة وطباعة الفاتورة / الإيصال (Invoice Modal) -->
+    <div id="invoiceModal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50 p-4 overflow-y-auto">
+        <div id="invoiceBox" class="bg-white rounded-xl max-w-2xl w-full p-8 shadow-2xl border border-slate-200 my-8">
+            
+            <!-- أزرار التحكم (تختفي عند الطباعة) -->
+            <div class="flex justify-between items-center mb-6 pb-4 border-b no-print">
+                <h3 class="text-lg font-bold text-slate-700">معاينة الفاتورة / بيان الحساب</h3>
+                <div class="flex gap-2">
+                    <button onclick="window.print()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-bold shadow transition">
+                        طباعة / حفظ PDF
+                    </button>
+                    <button onclick="closeInvoiceModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2 rounded-lg text-sm font-bold transition">
+                        إغلاق
+                    </button>
+                </div>
+            </div>
+
+            <!-- ترويسة الفاتورة المطبوعة -->
+            <div class="flex justify-between items-start border-b-2 border-indigo-600 pb-6 mb-6">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-indigo-700">Elsayed Hussain</h2>
+                    <p class="text-xs text-slate-500 mt-1">للخدمات التقنية وتطوير الأعمال | elsayedhussain.shop</p>
+                    <p class="text-xs text-slate-600 mt-1" dir="ltr">+201016899467 | alsayef68@gmail.com</p>
+                </div>
+                <div class="text-left">
+                    <span class="bg-indigo-50 text-indigo-800 border border-indigo-200 px-3 py-1 rounded-md font-extrabold text-sm inline-block mb-2">فاتورة / إيصال مالي</span>
+                    <p class="text-xs text-slate-600"><strong>رقم المرجع:</strong> <span id="inv-id" dir="ltr"></span></p>
+                    <p class="text-xs text-slate-600"><strong>تاريخ الإصدار:</strong> <span id="inv-date"></span></p>
+                </div>
+            </div>
+
+            <!-- بيانات العميل في الفاتورة -->
+            <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 mb-6 grid grid-cols-2 gap-4 text-sm">
+                <div>
+                    <p class="text-slate-500 text-xs mb-1">مطلوب من السيد / السادة:</p>
+                    <p class="font-bold text-slate-800 text-base" id="inv-name"></p>
+                </div>
+                <div>
+                    <p class="text-slate-500 text-xs mb-1">رقم الهاتف:</p>
+                    <p class="font-bold text-slate-800 text-base" id="inv-phone" dir="ltr"></p>
+                </div>
+            </div>
+
+            <!-- جدول تفاصيل المعاملة المالية -->
+            <table class="w-full text-right border-collapse mb-6 border border-slate-300 text-sm">
+                <thead>
+                    <tr class="bg-indigo-700 text-white">
+                        <th class="p-3 border border-indigo-700">بيان الخدمة / المنتج</th>
+                        <th class="p-3 border border-indigo-700 text-center w-36">المبلغ الإجمالي</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="p-4 border border-slate-300 font-semibold text-slate-800">
+                            <div id="inv-service"></div>
+                            <div id="inv-notes" class="text-xs text-slate-500 font-normal mt-1"></div>
+                        </td>
+                        <td class="p-4 border border-slate-300 text-center font-bold text-base" id="inv-total"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- ملخص الحسابات (المدفوع والمتبقي) -->
+            <div class="w-full sm:w-72 mr-auto space-y-2 text-sm border p-4 rounded-lg bg-slate-50 mb-8">
+                <div class="flex justify-between">
+                    <span class="text-slate-600">الإجمالي الكلي:</span>
+                    <span class="font-bold" id="inv-summary-total"></span>
+                </div>
+                <div class="flex justify-between text-emerald-700">
+                    <span>المبلغ المدفوع (المستلم):</span>
+                    <span class="font-bold" id="inv-paid"></span>
+                </div>
+                <div class="flex justify-between border-t pt-2 text-base font-extrabold" id="inv-rem-row">
+                    <span>الرصيد المتبقي:</span>
+                    <span id="inv-rem"></span>
+                </div>
+            </div>
+
+            <!-- التوقيع والتذييل -->
+            <div class="grid grid-cols-2 gap-8 pt-6 border-t border-dashed border-slate-300 text-xs text-slate-600">
+                <div>
+                    <p class="font-bold mb-6">توقيع المستلم / الإدارة:</p>
+                    <p class="border-b border-slate-400 w-40"></p>
+                </div>
+                <div class="text-left">
+                    <p class="font-bold mb-2">شكراً لتعاملكم معنا</p>
+                    <p>تم إصدار هذا المستند إلكترونياً عبر منصة</p>
+                    <p class="font-bold text-indigo-700">elsayedhussain.shop</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- تذييل الموقع -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center mt-12 text-sm no-print">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>&copy; 2026 جميع الحقوق محفوظة لموقع <strong>Elsayed Hussain</strong> (elsayedhussain.shop)</p>
+            <div class="flex flex-wrap justify-center gap-4 text-xs">
+                <a href="http://sayedhussain.free.nf" target="_blank" class="text-amber-400 hover:underline font-bold">مدير العملاء الشامل الذكي</a>
+                <a href="http://elsayedHussain.free.nf" target="_blank" class="text-emerald-400 hover:underline font-bold">مدير الحسابات الشامل الذكي</a>
+                <a href="#about" class="hover:text-white">من نحن</a>
+                <a href="#privacy" class="hover:text-white">سياسة الخصوصية</a>
+                <a href="#contact" class="hover:text-white">اتصل بنا</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- الأكواد البرمجية للنظام (JavaScript) -->
+    <script>
+        const STORAGE_KEY = 'elsayed_crm_clients_v1';
+        let clients = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+        function syncStorage() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(clients));
+            renderClients();
+        }
+
+        function saveClient(e) {
+            e.preventDefault();
+            const id = document.getElementById('client_id').value;
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const service = document.getElementById('service').value.trim();
+            const total_amount = parseFloat(document.getElementById('total_amount').value) || 0;
+            const paid_amount = parseFloat(document.getElementById('paid_amount').value) || 0;
+            const notes = document.getElementById('notes').value.trim();
+
+            if (id) {
+                const index = clients.findIndex(c => c.id == id);
+                if (index !== -1) {
+                    clients[index] = { ...clients[index], name, phone, service, total_amount, paid_amount, notes };
+                }
+            } else {
+                const newClient = {
+                    id: Date.now(),
+                    name,
+                    phone,
+                    service,
+                    total_amount,
+                    paid_amount,
+                    notes,
+                    date: new Date().toLocaleDateString('ar-EG')
+                };
+                clients.unshift(newClient);
+            }
+
+            resetForm();
+            syncStorage();
+        }
+
+        function renderClients() {
+            const tbody = document.getElementById('clientsTableBody');
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+            const filterType = document.getElementById('filterSelect').value;
+
+            let totalSum = 0;
+            let paidSum = 0;
+            clients.forEach(c => {
+                totalSum += Number(c.total_amount);
+                paidSum += Number(c.paid_amount);
+            });
+            const remainingSum = totalSum - paidSum;
+
+            document.getElementById('stat-count').innerText = clients.length;
+            document.getElementById('stat-total').innerText = totalSum.toFixed(2);
+            document.getElementById('stat-paid').innerText = paidSum.toFixed(2);
+            document.getElementById('stat-remaining').innerText = remainingSum.toFixed(2);
+
+            const filtered = clients.filter(c => {
+                const matchesSearch = c.name.toLowerCase().includes(searchQuery) ||
+                                      c.phone.includes(searchQuery) ||
+                                      (c.service && c.service.toLowerCase().includes(searchQuery));
+                const rem = c.total_amount - c.paid_amount;
+                if (filterType === 'debt') return matchesSearch && rem > 0;
+                if (filterType === 'paid') return matchesSearch && rem <= 0;
+                return matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-400">لا توجد سجلات مطابقة.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(c => {
+                const rem = (c.total_amount - c.paid_amount).toFixed(2);
+                const badgeClass = rem > 0 ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700';
+                return `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="p-3">
+                            <div class="font-bold text-slate-800">${escapeHtml(c.name)}</div>
+                            <div class="text-xs text-slate-500" dir="ltr">${escapeHtml(c.phone)}</div>
+                            ${c.notes ? `<div class="text-xs text-indigo-600 mt-1">ملاحظة: ${escapeHtml(c.notes)}</div>` : ''}
+                        </td>
+                        <td class="p-3">
+                            <div class="font-medium text-slate-700">${escapeHtml(c.service || 'معاملة عامة')}</div>
+                            <div class="text-xs text-slate-400">${c.date || ''}</div>
+                        </td>
+                        <td class="p-3 font-semibold">${Number(c.total_amount).toFixed(2)}</td>
+                        <td class="p-3 text-emerald-600 font-semibold">${Number(c.paid_amount).toFixed(2)}</td>
+                        <td class="p-3">
+                            <span class="px-2.5 py-1 rounded-full text-xs font-bold ${badgeClass}">${rem}</span>
+                        </td>
+                        <td class="p-3 text-center">
+                            <div class="flex justify-center flex-wrap gap-1.5">
+                                <button onclick="openInvoiceModal(${c.id})" class="bg-indigo-100 text-indigo-700 hover:bg-indigo-200 px-2.5 py-1 rounded text-xs font-bold">فاتورة PDF</button>
+                                <button onclick="sendWhatsApp(${c.id})" class="bg-emerald-100 text-emerald-700 hover:bg-emerald-200 px-2.5 py-1 rounded text-xs font-bold">واتساب</button>
+                                <button onclick="editClient(${c.id})" class="bg-amber-100 text-amber-700 hover:bg-amber-200 px-2.5 py-1 rounded text-xs font-bold">تعديل</button>
+                                <button onclick="deleteClient(${c.id})" class="bg-rose-100 text-rose-700 hover:bg-rose-200 px-2.5 py-1 rounded text-xs font-bold">حذف</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function openInvoiceModal(id) {
+            const c = clients.find(item => item.id == id);
+            if (!c) return;
+
+            const rem = (c.total_amount - c.paid_amount).toFixed(2);
+            document.getElementById('inv-id').innerText = '#' + String(c.id).slice(-6);
+            document.getElementById('inv-date').innerText = c.date || new Date().toLocaleDateString('ar-EG');
+            document.getElementById('inv-name').innerText = c.name;
+            document.getElementById('inv-phone').innerText = c.phone;
+            document.getElementById('inv-service').innerText = c.service || 'خدمات تقنية / معاملة عامة';
+            document.getElementById('inv-notes').innerText = c.notes ? 'ملاحظات: ' + c.notes : '';
+            document.getElementById('inv-total').innerText = Number(c.total_amount).toFixed(2) + ' ج.م';
+            document.getElementById('inv-summary-total').innerText = Number(c.total_amount).toFixed(2) + ' ج.م';
+            document.getElementById('inv-paid').innerText = Number(c.paid_amount).toFixed(2) + ' ج.م';
+            document.getElementById('inv-rem').innerText = rem + ' ج.م';
+
+            const remRow = document.getElementById('inv-rem-row');
+            remRow.className = rem > 0 ? 'flex justify-between border-t pt-2 text-base font-extrabold text-rose-600' : 'flex justify-between border-t pt-2 text-base font-extrabold text-emerald-700';
+
+            const modal = document.getElementById('invoiceModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeInvoiceModal() {
+            const modal = document.getElementById('invoiceModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function editClient(id) {
+            const client = clients.find(c => c.id == id);
+            if (!client) return;
+
+            document.getElementById('client_id').value = client.id;
+            document.getElementById('name').value = client.name;
+            document.getElementById('phone').value = client.phone;
+            document.getElementById('service').value = client.service || '';
+            document.getElementById('total_amount').value = client.total_amount;
+            document.getElementById('paid_amount').value = client.paid_amount;
+            document.getElementById('notes').value = client.notes || '';
+
+            document.getElementById('form-title').innerText = 'تعديل بيانات العميل: ' + client.name;
+            document.getElementById('submitBtn').innerText = 'حفظ التعديلات';
+            document.getElementById('cancelEditBtn').classList.remove('hidden');
+            window.scrollTo({ top: document.getElementById('clients-section').offsetTop - 80, behavior: 'smooth' });
+        }
+
+        function resetForm() {
+            document.getElementById('clientForm').reset();
+            document.getElementById('client_id').value = '';
+            document.getElementById('total_amount').value = '0';
+            document.getElementById('paid_amount').value = '0';
+            document.getElementById('form-title').innerText = 'إضافة عميل / معاملة جديدة';
+            document.getElementById('submitBtn').innerText = 'حفظ بيانات العميل';
+            document.getElementById('cancelEditBtn').classList.add('hidden');
+        }
+
+        function deleteClient(id) {
+            if (confirm('هل أنت متأكد من حذف سجل هذا العميل نهائياً؟')) {
+                clients = clients.filter(c => c.id != id);
+                syncStorage();
+            }
+        }
+
+        function clearAllData() {
+            if (confirm('تحذير: سيتم مسح جميع بيانات العملاء المسجلة نهائياً. هل تود المتابعة؟')) {
+                clients = [];
+                syncStorage();
+            }
+        }
+
+        function sendWhatsApp(id) {
+            const c = clients.find(item => item.id == id);
+            if (!c) return;
+            let cleanPhone = c.phone.replace(/\D/g, '');
+            if (cleanPhone.startsWith('01')) cleanPhone = '2' + cleanPhone;
+
+            const rem = (c.total_amount - c.paid_amount).toFixed(2);
+            const msg = `مرحباً أ. ${c.name}،\nتحية طيبة من منصة Elsayed Hussain.\n\nملخص حسابكم لدينا (${c.service || 'معاملة عامة'}):\n- الإجمالي: ${c.total_amount} ج.م\n- المدفوع: ${c.paid_amount} ج.م\n- المتبقي: ${rem} ج.م\n\nشكراً لتعاملكم معنا.`;
+            window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function exportToCSV() {
+            if (clients.length === 0) return alert('لا توجد بيانات لتصديرها!');
+            let csv = '\uFEFFالاسم,رقم الهاتف,الخدمة,الإجمالي,المدفوع,المتبقي,التاريخ,ملاحظات\n';
+            clients.forEach(c => {
+                const rem = (c.total_amount - c.paid_amount).toFixed(2);
+                csv += `"${c.name}","${c.phone}","${c.service || ''}",${c.total_amount},${c.paid_amount},${rem},"${c.date || ''}","${c.notes || ''}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `سجل_العملاء_${new Date().toISOString().slice(0,10)}.csv`;
+            link.click();
+        }
+
+        function downloadBackup() {
+            if (clients.length === 0) return alert('لا توجد بيانات لحفظها!');
+            const blob = new Blob([JSON.stringify(clients, null, 2)], { type: 'application/json' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `clients_backup_${new Date().toISOString().slice(0,10)}.json`;
+            link.click();
+        }
+
+        function restoreBackup(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (Array.isArray(imported)) {
+                        clients = imported;
+                        syncStorage();
+                        alert('تم استعادة النسخة الاحتياطية بنجاح!');
+                    } else {
+                        alert('صيغة الملف غير صحيحة.');
+                    }
+                } catch (err) {
+                    alert('حدث خطأ أثناء قراءة الملف.');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, m => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[m]));
+        }
+
+        window.onload = renderClients;
+    </script>
+</body>
+</html>
